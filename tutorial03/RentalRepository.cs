@@ -13,7 +13,7 @@ public class RentalRepository
     {
         _rentals.Add(rental);
     }
-
+    
     public Rental GetRental(long rentalId)
     {
         foreach (var rental in _rentals)
@@ -45,5 +45,17 @@ public class RentalRepository
         {
             throw new KeyNotFoundException("Rental with ID " + rentalId + " not found.");
         }
+    }
+    public List<Rental> GetRentalsByUserId(long userId)
+    {
+        List<Rental> result = new List<Rental>();
+        foreach (var rental in _rentals)
+        {
+            if (rental.UserId == userId)
+            {
+                result.Add(rental);
+            }
+        }
+        return result;
     }
 }
