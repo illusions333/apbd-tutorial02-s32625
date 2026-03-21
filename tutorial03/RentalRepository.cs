@@ -14,24 +14,26 @@ public class RentalRepository
         _rentals.Add(rental);
     }
     
-    public Rental GetRental(long rentalId)
+    public Rental GetRental(long userId, long equipmentId, DateTime rentalDate)
     {
         foreach (var rental in _rentals)
         {
-            if (rental.UserId == rentalId) return rental;
+            if (rental.UserId == userId && rental.EquipmentId == equipmentId &&
+                rental.RentalDate == rentalDate) return rental;
         }
-        throw new KeyNotFoundException("Rental with ID " + rentalId + " not found.");
+        throw new KeyNotFoundException("Rental was not found.");
     }
     public List<Rental> GetAllRentals()
     {
         return _rentals;
     }
-    public void RemoveRental(long rentalId)
+    public void RemoveRental(long userId, long equipmentId, DateTime rentalDate)
     {
         Rental? rentalToRemove = null;
         foreach (var rental in _rentals)
         {
-            if (rental.UserId == rentalId)
+            if (rental.UserId == userId && rental.EquipmentId == equipmentId &&
+                rental.RentalDate == rentalDate)
             {
                 rentalToRemove = rental;
                 break;
@@ -43,7 +45,7 @@ public class RentalRepository
         }
         else
         {
-            throw new KeyNotFoundException("Rental with ID " + rentalId + " not found.");
+            throw new KeyNotFoundException("Rental was not found.");
         }
     }
     public List<Rental> GetActiveRentalsByUserId(long userId)

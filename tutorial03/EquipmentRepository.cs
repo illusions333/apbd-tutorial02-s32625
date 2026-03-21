@@ -51,4 +51,13 @@ public class EquipmentRepository
         }
         return availableEquipments;
     }
+
+    public Equipment GetEquipmentById(long equipmentId)
+    {
+        foreach (var equipment in _equipments)
+        {
+            if (equipment.Id == equipmentId) return equipment;
+        }
+        throw new KeyNotFoundException("Rental with ID " + equipmentId + " not found.");
+    }
 }
