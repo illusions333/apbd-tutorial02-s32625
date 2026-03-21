@@ -46,12 +46,12 @@ public class RentalRepository
             throw new KeyNotFoundException("Rental with ID " + rentalId + " not found.");
         }
     }
-    public List<Rental> GetRentalsByUserId(long userId)
+    public List<Rental> GetActiveRentalsByUserId(long userId)
     {
         List<Rental> result = new List<Rental>();
         foreach (var rental in _rentals)
         {
-            if (rental.UserId == userId)
+            if (rental.UserId == userId && rental.ReturnDate == null)
             {
                 result.Add(rental);
             }
