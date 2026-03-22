@@ -34,9 +34,9 @@ public class EquipmentRepository
         }
     }
 
-    public List<Equipment> GetAllEquipments()
+    public IReadOnlyList<Equipment> GetAllEquipments()
     {
-        return _equipments;
+        return _equipments.AsReadOnly();
     }
 
     public List<Equipment> GetAvailableEquipments()
@@ -52,12 +52,12 @@ public class EquipmentRepository
         return availableEquipments;
     }
 
-    public Equipment GetEquipmentById(long equipmentId)
+    public Equipment GetEquipment(long equipmentId)
     {
         foreach (var equipment in _equipments)
         {
             if (equipment.Id == equipmentId) return equipment;
         }
-        throw new KeyNotFoundException("Rental with ID " + equipmentId + " not found.");
+        throw new KeyNotFoundException("Equipment with ID " + equipmentId + " not found.");
     }
 }

@@ -13,10 +13,15 @@ public class Laptop : Equipment
         BatteryLifeHours = 0;
     }
     
-    public Laptop(string name, bool isAvailable, string cpu, int ramGb, int batteryLifeHours) : base(name, isAvailable)
+    public Laptop(string name, string cpu, int ramGb, int batteryLifeHours) : base(name)
     {
         Cpu = cpu;
         RamGb = ramGb;
         BatteryLifeHours = batteryLifeHours;
+    }
+
+    public override string ToString()
+    {
+        return "Laptop #" + Id + "(Name: " + Name + ", CPU: " + Cpu + ", RAM: " + RamGb + " GB, battery life: " + BatteryLifeHours + " hours, available: " + IsAvailable + ")";
     }
 }

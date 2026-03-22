@@ -11,9 +11,14 @@ public class Projector : Equipment
         HasHdmi = false;
     }
 
-    public Projector(string name, bool isAvailable, string resolution, bool hasHdmi) : base(name, isAvailable)
+    public Projector(string name, string resolution, bool hasHdmi) : base(name)
     {
         Resolution = resolution;
         HasHdmi = hasHdmi;
     } 
+    
+    public override string ToString()
+    {
+        return "Projector #" + Id + "(Name: " + Name + ", resolution: " + Resolution + ", has HDMI: " + HasHdmi + ", available: " + IsAvailable + ")";
+    }
 }

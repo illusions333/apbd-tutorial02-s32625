@@ -15,35 +15,29 @@ public abstract class Equipment
         IsAvailable = true;
     }
 
-    protected Equipment(string name, bool isAvailable)
+    protected Equipment(string name)
     {
         _lastId++;
         Id = _lastId;
         Name = name;
-        IsAvailable = isAvailable;
+        IsAvailable = true;
     }
     
-    public string MakeAvailable()
+    public void MakeAvailable()
     {
         if (IsAvailable)
         {
-            return "Equipment " + Name + " with id #" + Id +  " is already available.";
+            throw new Exception("Equipment " + Name + " with id #" + Id +  " is already available.");
         }
         IsAvailable = true;
-        return "Equipment " + Name + " with id #" + Id + " is made available.";
     }
     
-    public string MakeUnavailable(string reason)
+    public void MakeUnavailable()
     {
-        if (string.IsNullOrEmpty(reason))
-        {
-            return "Reason for making equipment " + Name + " with id #" + Id + " unavailable cannot be empty.";
-        }
         if (!IsAvailable)
         {
-            return "Equipment " + Name + " with id #" + Id +  " is already unavailable.";
+            throw new InvalidOperationException("Equipment " + Name + " with id #" + Id +  " is already unavailable.");
         }
         IsAvailable = false;
-        return "Equipment " + Name + " with id #" + Id + " is made unavailable due to " + reason + ".";
     }
 }

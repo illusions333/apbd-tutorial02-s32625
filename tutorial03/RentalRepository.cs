@@ -19,11 +19,11 @@ public class RentalRepository
         foreach (var rental in _rentals)
         {
             if (rental.UserId == userId && rental.EquipmentId == equipmentId &&
-                rental.RentalDate == rentalDate) return rental;
+                rental.RentalDate.Date == rentalDate.Date) return rental;
         }
         throw new KeyNotFoundException("Rental was not found.");
     }
-    public List<Rental> GetAllRentals()
+    public IReadOnlyList<Rental> GetAllRentals()
     {
         return _rentals;
     }
@@ -33,7 +33,7 @@ public class RentalRepository
         foreach (var rental in _rentals)
         {
             if (rental.UserId == userId && rental.EquipmentId == equipmentId &&
-                rental.RentalDate == rentalDate)
+                rental.RentalDate.Date == rentalDate.Date)
             {
                 rentalToRemove = rental;
                 break;
@@ -45,7 +45,7 @@ public class RentalRepository
         }
         else
         {
-            throw new KeyNotFoundException("Rental was not found.");
+            Console.Error.WriteLine("Rental was not found.");
         }
     }
     public List<Rental> GetActiveRentalsByUserId(long userId)
@@ -54,6 +54,20 @@ public class RentalRepository
         foreach (var rental in _rentals)
         {
             if (rental.UserId == userId && rental.ReturnDate == null)
+            {
+                result.Add(rental);
+            }
+        }
+        return result;
+    }
+    
+    public List<Rental> GetOverdueRentals()
+    {
+        List<Rental> result = new List<Rental>();
+        DateTime currentDate = DateTime.Now.Date;
+        foreach (var rental in _rentals)
+        {
+            if (rental.ReturnDate == null && rental.DueDate.Date < currentDate.Date)
             {
                 result.Add(rental);
             }

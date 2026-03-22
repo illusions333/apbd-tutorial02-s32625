@@ -13,11 +13,15 @@ public class Camera : Equipment
         LensType = "Unknown lens type";
     }
 
-    public Camera(string name, bool isAvailable, int megapixels, bool hasOpticalZoom, string lensType) : base(name,
-        isAvailable)
+    public Camera(string name, int megapixels, bool hasOpticalZoom, string lensType) : base(name)
     {
         Megapixels = megapixels;
         HasOpticalZoom = hasOpticalZoom;
         LensType = lensType;
+    }
+    
+    public override string ToString()
+    {
+        return "Camera #" + Id + "(Name: " + Name + ", megapixels: " + Megapixels + ", has optical zoom: " + HasOpticalZoom + ", lens type: " + LensType + ", available: " + IsAvailable + ")";
     }
 }
